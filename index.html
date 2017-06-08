@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>vuejs-trial</title>
+  </head>
+  <body>
+    <div id="app">
+    <!-- built files will be auto injected -->
+    	<h1>{{welcome}}</h1>
+    	<div>
+    		<ul>
+    			<li v-for="nav in menu">
+    				<a href="#">{{nav.item}}</a>
+    			</li>
+    		</ul>
+    	</div>
+    	<div>
+            <div v-if="loggedIn">
+                <form>
+                    <button v-on:click="login">Logout</button>
+                </form>
+            </div>
+            <div v-else>
+                <input type="text" placeholder="username">
+                <input type="password" placeholder="password">
+                <button @click="login">Login</button>
+            </div>
+        </div>
+    	<div v-bind:style="style">
+    		<textarea v-model="another" v-bind:style="nstyle"></textarea>
+            <br>
+            <p>Some number: {{num}} </p>
+    	</div>
+    </div>
+  </body>
+</html>
