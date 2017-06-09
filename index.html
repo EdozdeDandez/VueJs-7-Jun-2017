@@ -12,7 +12,7 @@
             <hr>
             <p>Click a menu item to remove it</p>
     	    <ul>
-                <li is="nav-menu" v-for="(nav, index) in menu" v-bind:key="nav" v-bind:title="nav.item" @remove="menu.splice(index, 1)"></li>
+                <li is="nav-menu" v-for="(nav, index) in menu" v-bind:key="nav" v-bind:title="nav.item" @remove="subtract(index)"></li>
             </ul>
             <input v-model="newMenu" v-on:keyup.enter="addNewItem" placeholder="Add a menu item">
             <br><hr><br>
@@ -36,7 +36,11 @@
             </div>
         </div>
         <br><hr><br>
-        <div v-bind:class="{'active': 'isActive'}">
+        <div v-show="errorStatus">
+            <class-component v-bind:class="{'error': hasError, 'good': isGood}" v-bind:status="errorStatus"></class-component>
+        </div>
+        <br><hr><br>
+        <another-component v-bind:class="{'active': 'isActive'}">
             <new-component v-bind:message="another"></new-component>
             <textarea v-model="another" v-bind:class="{'seen': 'isVisible'}"></textarea>
             <br>
@@ -48,7 +52,7 @@
                 <input type="number" placeholder="0" v-model.number="b">
                 <p>Total: {{num}} </p>
             </form>
-        </div>
+        </another-component>
     </div>
 </body>
 </html>

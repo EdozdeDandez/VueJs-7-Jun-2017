@@ -6,11 +6,18 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-Vue.component('nav-menu', {
-  template: `<li><a href="#" @click="$emit('remove')">{{title}}</a></li>`,
-  props: ['title']
-})
 var written = {props: {'message': String}, template: `<p>{{message}}</p>`}
+Vue.component('nav-menu', {
+  template: `<li><a href="#" @click="remove">{{title}}</a></li>`,
+  props: ['title'],
+  methods: {
+    remove: function(){
+      this.$emit('remove')
+    }
+  }
+})
+var anotherClass = {template: `<div class=""><slot></slot></div>`}
+var newClass = {props: {'status': String}, template: `<div class=""><p>{{status}}</p></div>`}
 
 /* eslint-disable no-new */
 new Vue({
@@ -30,6 +37,10 @@ new Vue({
     newMenu: '',
     isActive: true,
     isVisible: true,
+    hasError: false,
+    isGood: '',
+    errorFound: 'There is an error',
+    noError: 'Good to go',
   	menu: [
   	{item: 'Home'},
   	{item: 'About'},
@@ -43,6 +54,9 @@ new Vue({
     addNewItem: function () {
       this.menu.push({item: this.newMenu})
       this.newMenu = ''
+    },
+    subtract: function(index){
+      this.menu.splice(index, 1)
     }
   },
   computed: {
@@ -54,10 +68,21 @@ new Vue({
     },
     pass: function(){
       return 'Password:' + this.password
+    },
+    errorStatus: function(){
+      if (this.hasError){
+        this.isGood = false
+        return this.errorFound
+      }
+      else{
+        this.isGood = true
+        return this.noError
+      }
     }
   },
   components: {
-    'new-component': written
-    //'class-component':
+    'new-component': written,
+    'class-component': newClass,
+    'another-component': anotherClass
   }
 })
