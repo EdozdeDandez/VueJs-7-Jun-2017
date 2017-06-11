@@ -7,6 +7,9 @@
 <body>
     <div id="app">
     <!-- built files will be auto injected -->
+        <div v-show="errorStatus" v-tack="0">
+            <class-component v-bind:class="{'error': hasError, 'good': isGood}" v-bind:status="errorStatus"></class-component>
+        </div>
         <h1>{{welcome}}</h1>
         <div>
             <hr>
@@ -35,11 +38,7 @@
                 <p>{{pass}}</p>
             </div>
         </div>
-        <br><hr><br>
-        <div v-show="errorStatus">
-            <class-component v-bind:class="{'error': hasError, 'good': isGood}" v-bind:status="errorStatus"></class-component>
-        </div>
-        <br><hr><br>
+        
         <another-component v-bind:class="{'active': 'isActive'}">
             <new-component v-bind:message="another"></new-component>
             <textarea v-model="another" v-bind:class="{'seen': 'isVisible'}"></textarea>
@@ -52,7 +51,9 @@
                 <input type="number" placeholder="0" v-model.number="b">
                 <p>Total: {{num}} </p>
             </form>
+            <p>Name: {{rname}}</p>
         </another-component>
+        <world></world>
     </div>
 </body>
 </html>

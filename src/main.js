@@ -1,8 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-require('./assets/style.scss')
+require('./assets/scss/style.scss')
 import Vue from 'vue'
 import App from './App'
+import World from './components/World'
+import MyPlugin from './plugins/my-plugin'
+import Mix from './mixins/mixin'
 
 Vue.config.productionTip = false
 
@@ -10,18 +13,26 @@ var written = {props: {'message': String}, template: `<p>{{message}}</p>`}
 Vue.component('nav-menu', {
   template: `<li><a href="#" @click="remove">{{title}}</a></li>`,
   props: ['title'],
-  methods: {
-    remove: function(){
-      this.$emit('remove')
-    }
+  mixins: [Mix],
+  created: function(){
+    console.log('Component created')
+  },
+})
+Vue.directive('tack', {
+  bind(el, binding, vnode) {
+    el.style.position = 'fixed'
+    el.style.right = binding.value + 'px'
   }
 })
 var anotherClass = {template: `<div class=""><slot></slot></div>`}
-var newClass = {props: {'status': String}, template: `<div class=""><p>{{status}}</p></div>`}
+var newClass = {props: {'status': String}, template: `<div class=""><strong>{{status}}</strong></div>`}
+
+Vue.use(MyPlugin)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  //render: h => h(World),
   //template: '<App/>',
   // components: { App }
   
@@ -78,11 +89,15 @@ new Vue({
         this.isGood = true
         return this.noError
       }
+    },
+    rname: function(){
+      return this.$nname
     }
   },
   components: {
     'new-component': written,
     'class-component': newClass,
-    'another-component': anotherClass
+    'another-component': anotherClass,
+    World
   }
 })
