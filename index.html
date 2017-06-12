@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <title>vuejs-trial</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
     <!-- built files will be auto injected -->
         <div v-show="errorStatus" v-tack="0">
             <class-component v-bind:class="{'error': hasError, 'good': isGood}" v-bind:status="errorStatus"></class-component>
         </div>
         <h1>{{welcome}}</h1>
+        <router-link v-bind:to="'/'" class='button' v-if="isLoggedIn">Home</router-link>
+        <router-link v-bind:to="'/hello'" class='button' v-if="isLoggedIn">Hello</router-link>
+        <router-link v-bind:to="'/login'" class='button' v-if="!isLoggedIn">Login</router-link>
+        <a href="#" v-if="isLoggedIn" @click="logout" class="button">Logout</a>
+        <router-view></router-view>
         <div>
             <hr>
             <p>Click a menu item to remove it</p>
@@ -27,18 +32,9 @@
                 </form>
             </div>
             <div v-else>
-                <form>
-                    <label>Username</label>
-                    <input type="text" placeholder="username" v-model="username">
-                    <label>Password</label>
-                    <input type="password" placeholder="password" v-model="password">
-                    <button @click="login">Login</button>
-                </form>
-                <p>{{name}}</p>
-                <p>{{pass}}</p>
+                
             </div>
         </div>
-        
         <another-component v-bind:class="{'active': 'isActive'}">
             <new-component v-bind:message="another"></new-component>
             <textarea v-model="another" v-bind:class="{'seen': 'isVisible'}"></textarea>
@@ -52,8 +48,19 @@
                 <p>Total: {{num}} </p>
             </form>
             <p>Name: {{rname}}</p>
+            <p>
+                <button @click="increase">Add</button>
+                {{counter}}
+                <button @click="decrease">Subtract</button>
+            </p>
         </another-component>
-        <world></world>
     </div>
-</body>
+    <div id="app1">
+        <p>
+            <button @click="increase">Add</button>
+            {{counter}}
+            <button @click="decrease">Subtract</button>
+        </p>
+    </div>
+  </body>
 </html>

@@ -10,7 +10,10 @@
 	color: yellow;
   padding: 5px;
   background: green;
-  height: 300px;
+  button{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 .seen{
 	width: 300px;
@@ -28,4 +31,23 @@
 .good{
   @include status();
   color: green;
+}
+.button{
+  width: 115px;
+  height: 25px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+#app1{
+  background: #99ccff;
+  padding: 10px;
+  margin-top: 10px;
+  button{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }

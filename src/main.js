@@ -3,9 +3,12 @@
 require('./assets/scss/style.scss')
 import Vue from 'vue'
 import App from './App'
-import World from './components/World'
+import router from './router'
 import MyPlugin from './plugins/my-plugin'
 import Mix from './mixins/mixin'
+import Store from './store/store'
+import Vuex from 'vuex'
+import store from './store/login'
 
 Vue.config.productionTip = false
 
@@ -28,27 +31,26 @@ var anotherClass = {template: `<div class=""><slot></slot></div>`}
 var newClass = {props: {'status': String}, template: `<div class=""><strong>{{status}}</strong></div>`}
 
 Vue.use(MyPlugin)
+Vue.use(Vuex)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  //render: h => h(World),
-  //template: '<App/>',
+  router,
+  store,
+  // template: '<App/>',
   // components: { App }
-  
   data: {
   	welcome: "Welcome to the Vue.js trial page" ,
   	hello: "Hello World",
-    loggedIn: false,
     another: '',
     a: 0,
     b: 0,
-    username: '',
-    password: '',
     newMenu: '',
     isActive: true,
     isVisible: true,
     hasError: false,
+    loggedIn: false,
     isGood: '',
     errorFound: 'There is an error',
     noError: 'Good to go',
@@ -59,27 +61,27 @@ new Vue({
   	]
   },
   methods: {
-  	login: function(){
-      this.loggedIn = !this.loggedIn
-    },
     addNewItem: function () {
       this.menu.push({item: this.newMenu})
       this.newMenu = ''
     },
     subtract: function(index){
       this.menu.splice(index, 1)
+    },
+    decrease: function(){
+      Store.commit('decrease')
+    },
+    increase: function(){
+      Store.commit('increase')
+    },
+    logout() {
+      this.$store.dispatch('logout');
     }
   },
   computed: {
   	num: function(){
   		return (this.a * 100 + this.b * 100)/100
   	},
-    name: function(){
-      return 'Username:'+ this.username
-    },
-    pass: function(){
-      return 'Password:' + this.password
-    },
     errorStatus: function(){
       if (this.hasError){
         this.isGood = false
@@ -92,12 +94,34 @@ new Vue({
     },
     rname: function(){
       return this.$nname
+    },
+    counter: function(){
+      return Store.state.counter
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
     }
   },
   components: {
     'new-component': written,
     'class-component': newClass,
-    'another-component': anotherClass,
-    World
+    'another-component': anotherClass
+  }
+}).$mount('#app')
+
+new Vue({
+  el: '#app1',
+  computed: {
+    counter: function(){
+      return Store.state.counter
+    }
+  },
+  methods: {
+    decrease: function(){
+      Store.commit('decrease')
+    },
+    increase: function(){
+      Store.commit('increase')
+    }
   }
 })
