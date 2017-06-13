@@ -17,6 +17,7 @@ describe('Login.vue', () => {
     Vue.nextTick(() => {
     	expect(defaultData.username).to.equal('myname')
     	expect(defaultData.password).to.equal('password')
+    	done()
     })
   })
   it('should check methods', () => {
