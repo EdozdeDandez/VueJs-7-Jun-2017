@@ -8,4 +8,9 @@ describe('Hello.vue', () => {
     expect(vm.$el.querySelector('.hello h1').textContent)
       .to.equal('Welcome to Your Vue.js App')
   })
+  it('sets the correct default data', () => {
+    expect(typeof Hello.data).to.equal('function')
+    const defaultData = Hello.data()
+    expect(defaultData.msg).to.equal('Welcome to Your Vue.js App')
+  })
 })

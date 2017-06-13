@@ -21,7 +21,6 @@ export default {
     return {
       username: '',
       password: '',
-      loggedIn: false,
     }
   },
   computed: {
@@ -33,9 +32,6 @@ export default {
     }
   },
   methods: {
-    login: function(){
-      this.loggedIn = !this.loggedIn
-    },
     signin: function() {
       this.$store.dispatch("login", {
         username: this.username,
