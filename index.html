@@ -13,6 +13,8 @@
         <h1>{{welcome}}</h1>
         <router-link v-bind:to="'/'" class='button' v-if="isLoggedIn">Home</router-link>
         <router-link v-bind:to="'/hello'" class='button' v-if="isLoggedIn">Hello</router-link>
+        <router-link v-bind:to="'/get'" class='button' v-if="isLoggedIn">Get</router-link>
+        <router-link v-bind:to="'/post'" class='button' v-if="isLoggedIn">Post</router-link>
         <router-link v-bind:to="'/login'" class='button' v-if="!isLoggedIn">Login</router-link>
         <a href="#" v-if="isLoggedIn" @click="logout" class="button">Logout</a>
         <router-view></router-view>
